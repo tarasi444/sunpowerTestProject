@@ -8,10 +8,9 @@ import pages.blocks.CalculateEnergySavingsBlock;
 import static com.codeborne.selenide.Selenide.$;
 
 public class SolarBatteryStoragePage {
+    private final SelenideElement calculateYourBackupPotentialButton = $(By.xpath("//a[contains(text(), 'Calculate " +
+            "Your Backup Potential') and @class = 'open-savings-calculator-button']"));
     public CalculateEnergySavingsBlock calculateEnergySavingsBlock;
-
-    private final SelenideElement calculateYourBackupPotentialButton = $(By.xpath("//a[contains(text(), 'Calculate Your Backup " +
-            "Potential') and @class = 'open-savings-calculator-button']"));
 
     public SolarBatteryStoragePage() {
         calculateEnergySavingsBlock = new CalculateEnergySavingsBlock();

@@ -15,11 +15,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CalculateEnergySavingsBlock {
-    private final SelenideElement calculateEnergySavingsFrame = $(By.xpath("//iframe[contains(@name, 'savings_calculator') " +
-            "and contains(@class, 'xcomponent-component-frame xcomponent-visible')]"));
+    private final SelenideElement calculateEnergySavingsFrame = $(By.xpath("//iframe[contains(@name, " +
+            "'savings_calculator') and contains(@class, 'xcomponent-component-frame xcomponent-visible')]"));
     private final SelenideElement addressSearchField = $(By.xpath("//input[contains(@class, 'address-input')]"));
     private final ElementsCollection addressSearchFieldDropdownItems = $$(By.xpath("//div[@class = 'pac-item']"));
-    private final SelenideElement nextButton = $(By.xpath("//*[contains(@style,'visibility: visible')]//button[contains(text(), 'Next')]"));
+    private final SelenideElement nextButton = $(By.xpath("//*[contains(@style,'visibility: visible')]//button[contains" +
+            "(text(), 'Next')]"));
     private final SelenideElement firstNameField = $(By.xpath("//input[@name = 'first-name']"));
     private final SelenideElement lastNameField = $(By.xpath("//input[@name = 'last-name']"));
     private final SelenideElement emailField = $(By.xpath("//input[@name = 'email']"));
@@ -90,8 +91,14 @@ public class CalculateEnergySavingsBlock {
     }
 
     @Step("Select an item in the 'Do you own the home' radio box")
-    public CalculateEnergySavingsBlock selectItemInTheDoYouOwnTheHomeRadioBox(String name) {
-        String locator = String.format("//mat-radio-button[@ng-reflect-value = '%s']//div[@class = 'mat-radio-inner-circle']", name);
+    public CalculateEnergySavingsBlock selectItemInTheDoYouOwnTheHomeRadioBox(boolean yesOrNot) {
+        String answer;
+        if (yesOrNot) {
+            answer = "yes";
+        } else {
+            answer = "no";
+        }
+        String locator = String.format("//mat-radio-button[@ng-reflect-value = '%s']//div[@class = 'mat-radio-inner-circle']", answer);
         $(By.xpath(locator)).click();
         return this;
     }

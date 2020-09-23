@@ -18,6 +18,7 @@ public abstract class BaseTest {
         Configuration.startMaximized = true;
         Configuration.timeout = DEFAULT_TIMEOUT;
         Configuration.pageLoadStrategy = "normal";
+        Configuration.clickViaJs = true;
     }
 
     @BeforeEach
