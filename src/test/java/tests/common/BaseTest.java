@@ -7,14 +7,16 @@ import pages.MainPage;
 import pages.SolarBatteryStoragePage;
 
 public abstract class BaseTest {
+    private static final int DEFAULT_TIMEOUT = 15000;
+    private static final String BASE_URL = "https://us.sunpower.com";
     public MainPage mainPage;
     public SolarBatteryStoragePage solarBatteryStoragePage;
 
     @BeforeAll
     private static void setUpDriver() {
-        Configuration.baseUrl = "https://us.sunpower.com/";
+        Configuration.baseUrl = BASE_URL;
         Configuration.startMaximized = true;
-        Configuration.timeout = 15000;
+        Configuration.timeout = DEFAULT_TIMEOUT;
         Configuration.pageLoadStrategy = "normal";
     }
 
