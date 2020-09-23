@@ -8,6 +8,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
+import utils.enums.HomeAddresses;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,6 +19,12 @@ public class CalculateEnergySavingsBlock {
             "and contains(@class, 'xcomponent-component-frame xcomponent-visible')]"));
     private final SelenideElement addressSearchField = $(By.xpath("//input[contains(@class, 'address-input')]"));
     private final ElementsCollection addressSearchFieldDropdownItems = $$(By.xpath("//div[@class = 'pac-item']"));
+    private final SelenideElement nextButton = $(By.xpath("//*[contains(@style,'visibility: visible')]//button[contains(text(), 'Next')]"));
+    private final SelenideElement firstNameField = $(By.xpath("//input[@name = 'first-name']"));
+    private final SelenideElement lastNameField = $(By.xpath("//input[@name = 'last-name']"));
+    private final SelenideElement emailField = $(By.xpath("//input[@name = 'email']"));
+    private final SelenideElement telephoneField = $(By.xpath("//input[@name = 'telephone']"));
+    private final SelenideElement getQuoteButton = $(By.xpath("//button[contains(text(), 'Get a quote')]"));
 
     @Step("Switch frame to the 'Calculate Energy Savings' frame")
     public CalculateEnergySavingsBlock switchToCalculateEnergySavingsFrame() {
@@ -26,14 +33,14 @@ public class CalculateEnergySavingsBlock {
     }
 
     @Step("Enter an address into the 'search' field")
-    public CalculateEnergySavingsBlock enterAddressIntoSearchField(String value) {
+    public CalculateEnergySavingsBlock enterAddressIntoSearchField(HomeAddresses homeAddresses) {
         switchToCalculateEnergySavingsFrame();
-        addressSearchField.sendKeys(value);
+        addressSearchField.sendKeys(homeAddresses.toString());
         return this;
     }
 
     @Step("Select place from the 'Search Address' dropdown")
-    public void selectPlaceFromTheSearchAddressDropdown(String addressName) {
+    public CalculateEnergySavingsBlock selectPlaceFromTheSearchAddressDropdown(HomeAddresses homeAddresses) {
         AtomicInteger clickArrowDownTimes = new AtomicInteger(0);
         Actions actions = actions();
 
@@ -41,7 +48,7 @@ public class CalculateEnergySavingsBlock {
                 .shouldBe(CollectionCondition.sizeGreaterThan(0))
                 .stream()
                 .peek(e -> clickArrowDownTimes.incrementAndGet())
-                .filter(e -> e.getText().contains(addressName))
+                .filter(e -> e.getText().contains(homeAddresses.toString()))
                 .findFirst()
                 .get();
 
@@ -49,5 +56,49 @@ public class CalculateEnergySavingsBlock {
             actions.sendKeys(Keys.ARROW_DOWN);
         }
         actions.sendKeys(Keys.ENTER).build().perform();
+        return this;
     }
+
+    @Step("Click the 'Next' button")
+    public CalculateEnergySavingsBlock clickNextButton() {
+        nextButton.shouldBe(Condition.enabled).scrollTo().click();
+        return this;
+    }
+
+    @Step("Enter a name into the 'Fist name' field")
+    public CalculateEnergySavingsBlock enterNameIntoFirstNameField(String value) {
+        firstNameField.sendKeys(value);
+        return this;
+    }
+
+    @Step("Enter a lat name into the 'Last name' field")
+    public CalculateEnergySavingsBlock enterLastNameIntoLastNameField(String value) {
+        lastNameField.sendKeys(value);
+        return this;
+    }
+
+    @Step("Enter an email into the 'Email address' field")
+    public CalculateEnergySavingsBlock enterEmailIntoEmailAddressField(String value) {
+        emailField.sendKeys(value);
+        return this;
+    }
+
+    @Step("Enter a telephone into the 'Telephone' field")
+    public CalculateEnergySavingsBlock enterTelephoneIntoTelephoneField(String value) {
+        telephoneField.sendKeys(value);
+        return this;
+    }
+
+    @Step("Select an item in the 'Do you own the home' radio box")
+    public CalculateEnergySavingsBlock selectItemInTheDoYouOwnTheHomeRadioBox(String name) {
+        String locator = String.format("//mat-radio-button[@ng-reflect-value = '%s']//div[@class = 'mat-radio-inner-circle']", name);
+        $(By.xpath(locator)).click();
+        return this;
+    }
+
+    @Step("Is the 'Get A Quote' button enabled")
+    public boolean isTheGetQuoteButtonEnabled() {
+        return getQuoteButton.shouldBe(Condition.enabled).isEnabled();
+    }
+
 }
