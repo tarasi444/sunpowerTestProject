@@ -91,7 +91,7 @@ public class CalculateEnergySavingsBlock {
     }
 
     @Step("Select an item in the 'Do you own the home' radio box")
-    public CalculateEnergySavingsBlock selectItemInTheDoYouOwnTheHomeRadioBox(boolean yesOrNot) {
+    public CalculateEnergySavingsBlock selectYesOrNoInTheDoYouOwnTheHomeRadioBox(boolean yesOrNot) {
         String answer;
         if (yesOrNot) {
             answer = "yes";
