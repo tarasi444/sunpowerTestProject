@@ -9,13 +9,17 @@ import utils.Utils;
 
 import static utils.enums.HomeAddresses.RIO_ROBLES_SAN_JOSE_CA_USA;
 
+/**
+ * The 'Calculate Your Backup Potential' tests'
+ */
 public class CalculateYourBackupPotentialTest extends BaseTest {
 
     @DisplayName("Make sure that can get a quote")
     @Test
-    public void makeSureThaCanGetQuote() {
+    public void VerifyThatCanGetQuote() {
         DriveHelper.openHomePage();
-        mainPage.scrollAndOpenSolarBatteryStorage()
+        mainPage
+                .scrollAndOpenSolarBatteryStorage()
                 .scrollAndOpenCalculateEnergySavingsBlock()
                 .enterAddressIntoSearchField(RIO_ROBLES_SAN_JOSE_CA_USA)
                 .selectPlaceFromTheSearchAddressDropdown(RIO_ROBLES_SAN_JOSE_CA_USA)
@@ -28,7 +32,7 @@ public class CalculateYourBackupPotentialTest extends BaseTest {
                 .enterTelephoneIntoTelephoneField(Utils.generateRandomNumeric(10))
                 .selectYesOrNoInTheDoYouOwnTheHomeRadioBox(false);
 
-        Assertions.assertTrue(solarBatteryStoragePage.calculateEnergySavingsBlock.isTheGetQuoteButtonEnabled()
+        Assertions.assertTrue(solarBatteryStoragePage.CalculateEnergySavingsModal.isTheGetQuoteButtonEnabled()
                 , "The 'Get A QUOTE' button is not enabled |");
     }
 }

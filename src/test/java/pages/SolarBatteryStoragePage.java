@@ -2,22 +2,27 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
-import pages.blocks.CalculateEnergySavingsBlock;
+import io.qameta.allure.Step;
+import pages.modals.CalculateEnergySavingsModal;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
+/**
+ * Models the 'Solar Battery Storage' page'
+ */
 public class SolarBatteryStoragePage {
-    private final SelenideElement calculateYourBackupPotentialButton = $(By.xpath("//a[contains(text(), 'Calculate " +
-            "Your Backup Potential') and @class = 'open-savings-calculator-button']"));
-    public CalculateEnergySavingsBlock calculateEnergySavingsBlock;
+    public CalculateEnergySavingsModal CalculateEnergySavingsModal;
+
+    private SelenideElement calculateYourBackupPotentialButton = $x("//a[contains(text(), 'Calculate " +
+            "Your Backup Potential') and @class = 'open-savings-calculator-button']");
 
     public SolarBatteryStoragePage() {
-        calculateEnergySavingsBlock = new CalculateEnergySavingsBlock();
+        CalculateEnergySavingsModal = new CalculateEnergySavingsModal();
     }
 
-    public CalculateEnergySavingsBlock scrollAndOpenCalculateEnergySavingsBlock() {
+    @Step("Scrolled and opened the 'Calculate Energy Savings' block")
+    public CalculateEnergySavingsModal scrollAndOpenCalculateEnergySavingsBlock() {
         calculateYourBackupPotentialButton.should(Condition.visible).click();
-        return new CalculateEnergySavingsBlock();
+        return new CalculateEnergySavingsModal();
     }
 }

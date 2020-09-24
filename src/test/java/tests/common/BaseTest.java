@@ -6,6 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import pages.MainPage;
 import pages.SolarBatteryStoragePage;
 
+/**
+ * Configure environment for the tests
+ */
 public abstract class BaseTest {
     private static final int DEFAULT_TIMEOUT = 15000;
     private static final String BASE_URL = "https://us.sunpower.com";

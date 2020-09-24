@@ -3,6 +3,9 @@ package utils;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 
+/**
+ * Utils for tests
+ */
 public class Utils {
 
     @Step("Generate random string")
